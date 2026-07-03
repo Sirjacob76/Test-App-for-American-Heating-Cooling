@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-  <!-- Renamed to main.js to completely bust browser caching -->
   <script src="main.js" defer></script>
 </head>
 <body>
@@ -19,11 +18,11 @@
       <div class="brand">
         <div class="dial"></div>
         <div>
-          <h1 class="title">AMERICAN HEATING & COOLING</h1>
-          <span class="sub">Monroe, MI · Since 1988</span>
+          <h1 class="title">LOCAL COMFORT</h1>
+          <span class="sub">HEATING & COOLING</span>
         </div>
       </div>
-      <a href="tel:1234567890" class="call-pill">Call (734) 241-8800 </a>
+      <a href="tel:1234567890" class="call-pill">Call Office</a>
     </header>
 
     <!-- PWA INSTALL BANNER -->
@@ -70,7 +69,7 @@
           </div>
           <div class="svc-item" data-cat="heating" data-svc="Furnace Check">
             <div class="dot heat"></div>
-            <div class="body"><b>Heating Clean & Check</b><span>Comprehensive inspection to ensure winter safe-operation performance.</span></div>
+            <div class="body"><b>Heating Clean & Check</b><span>Comprehensive inspection to ensure safe-operation performance.</span></div>
             <div class="go">&rsaquo;</div>
           </div>
           <div class="svc-item" data-cat="heating" data-svc="Heat Pump Repair">
@@ -131,12 +130,13 @@
         <div class="field"><label>Choose an Available Window</label></div>
         <div id="slots-grid" class="slots-grid"></div>
 
-        <!-- NEW FULLY STRUCTURED BOOKING FORM WITH ZIP MANDATE -->
+        <!-- FULLY STRUCTURED BOOKING FORM -->
         <form id="booking-form">
           <div class="field">
             <label for="cust-name">Your Full Name</label>
             <input type="text" id="cust-name" required placeholder="John Doe">
           </div>
+          
           <div class="field">
             <label for="cust-phone">Mobile Callback Number</label>
             <input type="tel" id="cust-phone" required placeholder="(555) 000-0000">
@@ -156,6 +156,24 @@
               <label for="cust-zip">ZIP Code</label>
               <input type="text" id="cust-zip" required pattern="[0-9]{5}" maxlength="5" placeholder="48161">
             </div>
+          </div>
+
+          <!-- NEW: Equipment Type Selector Field -->
+          <div class="field">
+            <label for="sys-type">System / Equipment Type</label>
+            <select id="sys-type" required>
+              <option value="" disabled selected>Select equipment...</option>
+              <option value="Central AC">Central Air Conditioner</option>
+              <option value="Gas/Elec Furnace">Gas / Electric Furnace</option>
+              <option value="Heat Pump Hybrid">Heat Pump (Hybrid System)</option>
+              <option value="Boiler System">Boiler / Radiant Heating</option>
+            </select>
+          </div>
+
+          <!-- NEW: Issue Description Field -->
+          <div class="field">
+            <label for="cust-notes">Issue Description / Symptoms</label>
+            <textarea id="cust-notes" rows="3" placeholder="e.g., system blowing warm air, making a loud clicking sound, thermostat won't power up..."></textarea>
           </div>
 
           <div id="booking-summary" class="booking-summary-box" style="display:none; margin-bottom:14px;"></div>
