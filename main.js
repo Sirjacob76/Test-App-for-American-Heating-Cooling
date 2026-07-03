@@ -95,12 +95,13 @@ async function fetchLiveCoupons() {
         </div>
       </div>`;
   } catch (err) {
+    // Custom tailored fallback text for regional presentation
     container.innerHTML = `
       <div class="promo-card animate-fade">
         <div class="badge">$20 OFF</div>
         <div class="txt">
-          <b>Seasonal Maintenance Special</b>
-          <span>App-Exclusive Offer: Save on your next system Tune-up!</span>
+          <b>Seasonal Service Special</b>
+          <span>App-Exclusive Offer: Save $20 on your next scheduled diagnostic call!</span>
         </div>
       </div>`;
   }
@@ -169,6 +170,9 @@ function changeDate(days) {
   renderCalendar();
 }
 
+// =========================================================
+// CALENDAR RENDER ENGINE
+// =========================================================
 function renderCalendar() {
   const dateStr = STATE.selectedDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
   
@@ -185,7 +189,6 @@ function renderCalendar() {
       `<div class="slot-card ${STATE.selectedSlot === slot ? 'selected' : ''}" data-slot="${slot}"><b>${slot}</b><span style="color:var(--blue)">Available</span></div>`;
   }).join('');
 
-  // Dynamically attach slot card choice event handlers
   grid.querySelectorAll('.slot-card[data-slot]').forEach(card => {
     card.addEventListener('click', () => {
       const slotTime = card.getAttribute('data-slot');
@@ -217,13 +220,25 @@ function handleFormSubmit(e) {
   const selectionDropdown = document.getElementById('svc-select');
   const selectedService = selectionDropdown ? selectionDropdown.value : "HVAC Service";
 
+  const street = document.getElementById('cust-street').value.trim();
+  const city = document.getElementById('cust-city').value.trim();
+  const zip = document.getElementById('cust-zip').value.trim();
+  const fullFormattedAddress = `${street}, ${city}, MI ${zip}`;
+
+  // Gather new form inputs
+  const equipment = document.getElementById('sys-type').value;
+  const noteDetails = document.getElementById('cust-notes').value.trim() || "No additional notes provided.";
+
   const newAppt = {
     id: 'appt_' + Date.now(),
     date: STATE.selectedDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }),
     time: STATE.selectedSlot,
     service: selectedService,
     name: document.getElementById('cust-name').value,
-    phone: document.getElementById('cust-phone').value
+    phone: document.getElementById('cust-phone').value,
+    address: fullFormattedAddress,
+    equipment: equipment,
+    notes: noteDetails
   };
 
   STATE.appointments.push(newAppt);
@@ -239,6 +254,9 @@ function handleFormSubmit(e) {
   switchView('bookings');
 }
 
+// =========================================================
+// APPOINTMENTS RENDER ENGINE
+// =========================================================
 function renderAppointmentsDashboard() {
   const container = document.getElementById('user-appointments-list');
   if (!container) return;
@@ -251,17 +269,22 @@ function renderAppointmentsDashboard() {
   container.innerHTML = STATE.appointments.map(appt => `
     <div class="user-appt-card animate-fade" id="${appt.id}">
       <div class="appt-main">
-        <div>
+        <div style="width: 100%;">
           <b>${appt.service}</b>
           <span>${appt.date} • ${appt.time}</span>
-          <span style="font-size:11px; margin-top:4px; display:block; color:var(--ink-soft)">For: ${appt.name}</span>
+          
+          <hr style="border:0; border-top:1px solid #E2E8F0; margin:8px 0;">
+          
+          <span style="font-size:11px; display:block; color:var(--ink); font-weight:500;"><b>Customer:</b> ${appt.name} • ${appt.phone}</span>
+          <span style="font-size:11px; margin-top:2px; display:block; color:var(--ink-soft);"><b>Location:</b> ${appt.address}</span>
+          <span style="font-size:11px; margin-top:2px; display:block; color:var(--ink-soft);"><b>Equipment:</b> ${appt.equipment}</span>
+          <span style="font-size:11px; margin-top:4px; display:block; padding:6px; background:#F8FAFC; border-radius:4px; color:var(--ink); font-style:italic;">"${appt.notes}"</span>
         </div>
-        <button class="cancel-appt-btn" data-cancel-id="${appt.id}">Cancel</button>
+        <button class="cancel-appt-btn" data-cancel-id="${appt.id}" style="align-self: flex-start; margin-left: 10px;">Cancel</button>
       </div>
     </div>
   `).join('');
 
-  // Dynamically attach cancellation listener actions
   container.querySelectorAll('.cancel-appt-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const targetId = btn.getAttribute('data-cancel-id');
