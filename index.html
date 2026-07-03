@@ -1,532 +1,192 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1" />
-  <title>American Heating & Cooling</title>
-  <meta name="description" content="Free quotes, estimates, appointment booking, and financing for HVAC service in Monroe, MI. Serving Monroe, Dundee, Bedford and surrounding areas since 1988." />
-  <meta name="theme-color" content="#0B2545" />
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="icons/icon-192.png" />
-  <link rel="apple-touch-icon" href="icons/icon-192.png" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="AH&C" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>HVAC Service Companion</title>
+  <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght=500;600;700&family=Inter:wght=400;500;600;700&family=IBM+Plex+Mono:wght=500&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  <!-- Renamed to main.js to completely bust browser caching -->
+  <script src="main.js" defer></script>
 </head>
 <body>
-<div id="app">
 
-  <div class="topbar">
-    <div class="brand">
-      <div class="dial"></div>
-      <div>
-        <div class="title" id="topTitle">American Heating &amp; Cooling</div>
-        <div class="sub" id="topSub">Monroe, MI · Since 1988</div>
+  <div id="app">
+    <!-- TOP BAR NAVIGATION -->
+    <header class="topbar">
+      <div class="brand">
+        <div class="dial"></div>
+        <div>
+          <h1 class="title">AMERICAN</h1>
+          <span class="sub">HEATING & COOLING</span>
+        </div>
       </div>
+      <a href="tel:1234567890" class="call-pill">Call Office</a>
+    </header>
+
+    <!-- PWA INSTALL BANNER -->
+    <div id="install-banner" class="install-banner">
+      <span>Add to your home screen for instant booking access!</span>
+      <button id="install-btn">Install</button>
     </div>
-    <a class="call-pill" href="tel:7342418800">☎ Call (734) 241-8800</a>
+
+    <!-- VIEW 1: HOME, SERVICES, COUPOUNS, & FAQS -->
+    <main id="view-home" class="view active">
+      <section class="hero">
+        <span class="eyebrow">Reliable Comfort</span>
+        <h1>HVAC Problems?<br>We've Got You Covered.</h1>
+        <p>Book certified technicians for diagnostics, preventative maintenance, or emergency system repairs directly from your device.</p>
+        <div class="stat-row">
+          <div class="stat"><div class="n">4.9★</div><div class="l">RATED ONSITE</div></div>
+          <div class="stat"><div class="n">24/7</div><div class="l">AVAILABILITY</div></div>
+          <div class="stat"><div class="n">100%</div><div class="l">GUARANTEE</div></div>
+        </div>
+      </section>
+
+      <!-- Dynamic Live Push Container from Central Website Data -->
+      <div id="live-promo-container"></div>
+
+      <!-- FILTER CHIPS -->
+      <div class="cat-row">
+        <div class="cat-chip active" data-filter="all">All Services</div>
+        <div class="cat-chip" data-filter="cooling">Cooling</div>
+        <div class="cat-chip" data-filter="heating">Heating</div>
+        <div class="cat-chip" data-filter="other">Air Quality</div>
+      </div>
+
+      <!-- FULL SERVICES SUITE -->
+      <div class="section">
+        <div class="section-head">
+          <h2>Our Services</h2>
+          <span class="tag">Select below to book</span>
+        </div>
+        <div class="svc-list" id="services-target-list">
+          <div class="svc-item" data-cat="cooling" data-svc="AC Diagnostic">
+            <div class="dot ac"></div>
+            <div class="body"><b>Air Conditioning Diagnostic</b><span>Troubleshoot cooling failure, airflow loss, or weird sounds.</span></div>
+            <div class="go">&rsaquo;</div>
+          </div>
+          <div class="svc-item" data-cat="heating" data-svc="Furnace Check">
+            <div class="dot heat"></div>
+            <div class="body"><b>Heating Clean & Check</b><span>Comprehensive inspection to ensure winter safe-operation performance.</span></div>
+            <div class="go">&rsaquo;</div>
+          </div>
+          <div class="svc-item" data-cat="heating" data-svc="Heat Pump Repair">
+            <div class="dot heat"></div>
+            <div class="body"><b>Heat Pump Systems</b><span>Diagnostic or maintenance for electric heat pump hybrid configurations.</span></div>
+            <div class="go">&rsaquo;</div>
+          </div>
+          <div class="svc-item" data-cat="other" data-svc="Ductwork Inspection">
+            <div class="dot other"></div>
+            <div class="body"><b>Air Quality & Duct Inspection</b><span>Evaluate airflow restrictions, filtration needs, or duct sanitization.</span></div>
+            <div class="go">&rsaquo;</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLLAPSIBLE FAQ ACCORDION -->
+      <div class="section" style="margin-top: 16px;">
+        <div class="section-head">
+          <h2>Frequently Asked Questions</h2>
+        </div>
+        <div class="faq">
+          <div class="faq-item">
+            <button class="faq-q"><span>What is included in a diagnostic fee?</span><span class="chev">▼</span></button>
+            <div class="faq-a"><p>Our diagnostic service covers the technician's travel, complete system evaluation, and a guaranteed fix quote before any repair work begins.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q"><span>Do you offer emergency after-hours dispatch?</span><span class="chev">▼</span></button>
+            <div class="faq-a"><p>Yes! We have standby dispatch teams available 24/7 for critical heating or cooling failures. Call the office line directly using the app shortcut bar for faster routing.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="owner-quote">
+        <p>"We treat your household comfort needs with the transparency and speed your family deserves."</p>
+        <b>— Dispatch & Operations Management</b>
+      </div>
+    </main>
+
+    <!-- VIEW 2: BOOKING CALENDAR SYSTEM -->
+    <main id="view-schedule" class="view">
+      <div style="padding: 16px 18px;">
+        <div class="field">
+          <label for="svc-select">Select Target Service</label>
+          <select id="svc-select">
+            <option value="AC Diagnostic">Air Conditioning Diagnostic</option>
+            <option value="Furnace Check">Heating Clean & Check</option>
+            <option value="Heat Pump Repair">Heat Pump Systems</option>
+            <option value="Ductwork Inspection">Air Quality / Duct Inspection</option>
+          </select>
+        </div>
+
+        <div class="calendar-nav">
+          <button id="prev-day-btn">&lsaquo; Prev Day</button>
+          <span id="calendar-date-display" style="font-weight:700; font-size:13.5px; color:var(--navy);"></span>
+          <button id="next-day-btn">Next Day &rsaquo;</button>
+        </div>
+
+        <div class="field"><label>Choose an Available Window</label></div>
+        <div id="slots-grid" class="slots-grid"></div>
+
+        <!-- NEW FULLY STRUCTURED BOOKING FORM WITH ZIP MANDATE -->
+        <form id="booking-form">
+          <div class="field">
+            <label for="cust-name">Your Full Name</label>
+            <input type="text" id="cust-name" required placeholder="John Doe">
+          </div>
+          <div class="field">
+            <label for="cust-phone">Mobile Callback Number</label>
+            <input type="tel" id="cust-phone" required placeholder="(555) 000-0000">
+          </div>
+          
+          <div class="field">
+            <label for="cust-street">Street Address</label>
+            <input type="text" id="cust-street" required placeholder="123 Main St">
+          </div>
+          
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px;">
+            <div class="field">
+              <label for="cust-city">City</label>
+              <input type="text" id="cust-city" required placeholder="Monroe">
+            </div>
+            <div class="field">
+              <label for="cust-zip">ZIP Code</label>
+              <input type="text" id="cust-zip" required pattern="[0-9]{5}" maxlength="5" placeholder="48161">
+            </div>
+          </div>
+
+          <div id="booking-summary" class="booking-summary-box" style="display:none; margin-bottom:14px;"></div>
+          <button type="submit" class="submit-btn">Lock in Scheduled Request</button>
+        </form>
+      </div>
+    </main>
+
+    <!-- VIEW 3: LIVE RE-RENDER CLIENT DASHBOARD -->
+    <main id="view-bookings" class="view">
+      <div style="padding: 16px 18px;">
+        <div class="section-head" style="padding:0 0 12px 0;">
+          <h2>Your Scheduled Appointments</h2>
+        </div>
+        <div id="user-appointments-list"></div>
+      </div>
+    </main>
+
+    <!-- TAB BAR APP CONTROLLER -->
+    <nav class="tabbar">
+      <button class="tab-btn active" data-target="home">
+        <span class="tico">🏠</span><span>Home</span>
+      </button>
+      <button class="tab-btn" data-target="schedule">
+        <span class="tico">📅</span><span>Schedule</span>
+      </button>
+      <button class="tab-btn" data-target="bookings">
+        <span class="tico">📋</span><span>My Bookings</span>
+      </button>
+    </nav>
   </div>
 
-  <div class="install-banner" id="installBanner">
-    <span>Install this app on your home screen for one-tap access.</span>
-    <button id="installBtn">Install</button>
-  </div>
-
-  <!-- ============= HOME ============= -->
-  <section class="view active" id="view-home">
-    <div class="hero">
-      <div class="eyebrow">★ Best of Monroe County — 4.9/5 Stars (850+ Reviews)</div>
-      <h1>Your Heating &amp; AC Repair Specialists in the Monroe Area</h1>
-      <p>Family-run since 1988. Honest diagnostics, licensed technicians, and 24-hour emergency service — servicing all major makes and models.</p>
-      <div class="stat-row">
-        <div class="stat"><div class="n">38+</div><div class="l">YEARS IN MONROE</div></div>
-        <div class="stat"><div class="n">24/7</div><div class="l">EMERGENCY RUNS</div></div>
-        <div class="stat"><div class="n">A+</div><div class="l">BBB ACCREDITED</div></div>
-      </div>
-    </div>
-
-    <div class="quick-grid">
-      <button class="quick-card" onclick="openQuote('quote')">
-        <div class="ic blue">◎</div>
-        <b>Free Quote</b>
-        <span>No-cost estimate on repairs or upgrades</span>
-      </button>
-      <button class="quick-card" onclick="openQuote('estimate')">
-        <div class="ic amber">▤</div>
-        <b>Get an Estimate</b>
-        <span>System replacement &amp; installation pricing</span>
-      </button>
-      <button class="quick-card" onclick="openQuote('appointment')">
-        <div class="ic red">◷</div>
-        <b>Book Appointment</b>
-        <span>Schedule a service technician visit online</span>
-      </button>
-      <button class="quick-card" onclick="goTab('financing')">
-        <div class="ic navy">$</div>
-        <b>Financing</b>
-        <span>Flexible payment options &amp; promotions</span>
-      </button>
-    </div>
-
-    <div class="promo-card">
-      <div class="badge">$69</div>
-      <div class="txt">
-        <b>Furnace Clean &amp; Check Special</b>
-        <span>Seasonal safety checkup · Good through July 2026</span>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-head"><h2>Explore Our Full Lineup</h2><span class="tag">tap to review</span></div>
-    </div>
-    <div class="svc-list">
-      <div class="svc-item" onclick="goTab('services')"><span class="dot ac"></span><div class="body"><b>Air Conditioning</b><span>Repair, replacement, tune-ups &amp; ductless</span></div><span class="go">›</span></div>
-      <div class="svc-item" onclick="goTab('services')"><span class="dot heat"></span><div class="body"><b>Heating &amp; Furnaces</b><span>Furnace installation, boiler care &amp; conversions</span></div><span class="go">›</span></div>
-      <div class="svc-item" onclick="goTab('services')"><span class="dot other"></span><div class="body"><b>Air Quality &amp; Systems</b><span>Duct cleaning, tankless water heaters, insulation</span></div><span class="go">›</span></div>
-    </div>
-
-    <div class="owner-quote">
-      <p>"We pride ourselves on bringing quality to every job. We are a fully licensed and insured, local company that has been here for almost four decades. We value our customers and want to bring only the best in integrity and workmanship to every service call."</p>
-      <b>— Marisa &amp; Josh Mahon, Owners</b>
-    </div>
-
-    <div class="section"><div class="section-head"><h2>Cities We Service</h2></div></div>
-    <div class="chips-wrap">
-      <span class="chip">Monroe</span><span class="chip">Dundee</span><span class="chip">Bedford</span>
-      <span class="chip">Carleton</span><span class="chip">Erie</span><span class="chip">Ida</span>
-      <span class="chip">La Salle</span><span class="chip">Lambertville</span><span class="chip">Luna Pier</span>
-      <span class="chip">Newport</span><span class="chip">Petersburg</span><span class="chip">Temperance</span><span class="chip">Pointe Place</span>
-    </div>
-
-    <div class="section"><div class="section-head"><h2>Frequently Asked Questions</h2></div></div>
-    <div class="faq" id="faqList"></div>
-
-    <footer class="legal">
-      1118 Union St · Monroe, MI 48161 · License 7118262<br>
-      © 2001–2026 American Heating &amp; Cooling
-    </footer>
-  </section>
-
-  <!-- ============= SERVICES ============= -->
-  <section class="view" id="view-services">
-    <div class="fin-hero" style="text-align:left;">
-      <h1>Our Services</h1>
-      <p>Tap a category below to see full capabilities across Trane, American Standard, Carrier, Goodman, and other top brands.</p>
-    </div>
-    <div class="cat-row" id="catRow">
-      <button class="cat-chip active" data-cat="ac">Air Conditioning</button>
-      <button class="cat-chip" data-cat="heat">Heating</button>
-      <button class="cat-chip" data-cat="other">Other Services</button>
-    </div>
-    <div class="svc-list" id="serviceListing"></div>
-  </section>
-
-  <!-- ============= LIVE BOOKING & CALENDAR ============= -->
-  <section class="view" id="view-quote">
-    <div class="fin-hero" style="text-align:left;">
-      <h1 id="quoteHeadline">Book an Appointment</h1>
-      <p id="quoteSub">Select your service, choose an open time slot, and instantly lock in your booking—no phone call required.</p>
-    </div>
-
-    <!-- Active Bookings Dashboard -->
-    <div id="myBookingsContainer" class="section" style="display:none; padding: 0 18px;">
-      <div class="section-head"><h2>Your Scheduled Appointments</h2></div>
-      <div id="activeBookingsList"></div>
-    </div>
-
-    <!-- Step 1: Select Service -->
-    <div class="section"><div class="section-head"><h2>1. Select Service Needed</h2></div></div>
-    <div class="field" style="padding: 0 18px;">
-      <select id="bookingService" onchange="updateBookingSummary()">
-        <option value="AC Repair Diagnostic">AC Repair Diagnostic</option>
-        <option value="Furnace Clean & Check">Furnace Clean & Check</option>
-        <option value="Heat Pump Service">Heat Pump Service</option>
-        <option value="Tankless Water Heater Repair">Tankless Water Heater Repair</option>
-        <option value="Duct Cleaning Assessment">Duct Cleaning Assessment</option>
-      </select>
-    </div>
-
-    <!-- Step 2: Select Date & Time Slot -->
-    <div class="section"><div class="section-head"><h2>2. Select an Available Slot</h2></div></div>
-    <div style="padding: 0 18px;">
-      <div class="calendar-nav">
-        <button type="button" onclick="alert('Feature coming soon: viewing custom calendar dates.')">◀ Prev Week</button>
-        <span id="currentWeekDisplay" style="font-weight:600; font-family:'Space Grotesk';">Available Openings</span>
-        <button type="button" onclick="alert('Feature coming soon: viewing custom calendar dates.')">Next Week ▶</button>
-      </div>
-      <div class="slots-grid" id="availableSlotsGrid">
-        <!-- Generated Dynamically by JS -->
-      </div>
-    </div>
-
-    <!-- Step 3: Contact Context -->
-    <div class="section"><div class="section-head"><h2>3. Your Information</h2></div></div>
-    <form id="liveBookingForm" style="margin-top: 10px; padding: 0 18px;">
-      <input type="hidden" id="selectedSlotId" value="">
-      
-      <div class="field-row">
-        <div class="field"><label>First name *</label><input required id="bookFName" placeholder="Jane"></div>
-        <div class="field"><label>Last name *</label><input required id="bookLName" placeholder="Doe"></div>
-      </div>
-      <div class="field"><label>Street address *</label><input required id="bookAddr" placeholder="1118 Union St"></div>
-      <div class="field-row">
-        <div class="field"><label>City *</label><input required id="bookCity" placeholder="Monroe"></div>
-        <div class="field" style="max-width:90px;"><label>ZIP *</label><input required id="bookZip" placeholder="48161"></div>
-      </div>
-      <div class="field"><label>Mobile Phone (For Text Alerts) *</label><input required type="tel" id="bookPhone" placeholder="(734) 555-0100"></div>
-      <div class="field"><label>Special Notes for Tech</label><textarea id="bookNotes" placeholder="Any gate codes, pet alerts, or specific system issues..."></textarea></div>
-
-      <div class="booking-summary-box" id="summaryBox" style="display:none; margin: 16px 0;">
-        <b>Booking Summary:</b>
-        <p id="summaryText">Please choose a service type and open appointment slot above.</p>
-      </div>
-
-      <button type="submit" class="submit-btn" id="confirmBookingBtn" disabled>Confirm Appointment</button>
-    </form>
-  </section>
-
-  <!-- ============= FINANCING ============= -->
-  <section class="view" id="view-financing">
-    <div class="fin-hero">
-      <h1>Financing &amp; Payment Options</h1>
-      <p>AC and furnace service isn't cheap — that's why we make it easy to pay your way.</p>
-    </div>
-    <div class="pay-grid">
-      <div>💵 Cash</div><div>🧾 Check</div><div>💳 Credit</div><div>💳 Debit</div>
-    </div>
-    <div class="section"><div class="section-head"><h2>Need to Finance a Repair or Upgrade?</h2></div></div>
-    <p style="padding:0 18px; font-size:12.5px; color:var(--ink-soft); line-height:1.6;">If you're in need of major repairs or want to upgrade your existing equipment, we offer convenient financing options upon credit approval through our trusted partners below.</p>
-
-    <a class="fin-card" href="https://app.apptracker.dev/EG-49343" target="_blank" rel="noopener">
-      <div><b>Optimus Financing</b><span>Apply online for fast credit decisions</span></div>
-      <span class="arrow">↗</span>
-    </a>
-    <a class="fin-card" href="https://www.mysynchrony.com/mmc/M9241766500" target="_blank" rel="noopener">
-      <div><b>Synchrony Financial</b><span>Promotional financing on approved credit</span></div>
-      <span class="arrow">↗</span>
-    </a>
-    <button class="fin-card" style="width:calc(100% - 36px); text-align:left; border:none;" onclick="openQuote('estimate')">
-      <div><b>Not sure what you need?</b><span>Get a free on-site estimate first</span></div>
-      <span class="arrow">→</span>
-    </button>
-  </section>
-
-  <!-- ============= MORE ============= -->
-  <section class="view" id="view-more">
-    <div class="fin-hero" style="text-align:left;">
-      <h1>Contact &amp; Info</h1>
-      <p>Proudly serving the Monroe and Bedford area for over 38 years.</p>
-    </div>
-    <div class="info-list">
-      <a class="info-row" href="tel:7342418800"><div class="ic2">☎</div><div><b>(734) 241-8800</b><span>Tap to call · 24-hour emergency service</span></div><span class="arrow">›</span></a>
-      <a class="info-row" href="https://www.google.com/maps/search/?api=1&query=1118+Union+St+Monroe+MI+48161" target="_blank" rel="noopener"><div class="ic2">📍</div><div><b>1118 Union St, Monroe, MI 48161</b><span>Tap for directions</span></div><span class="arrow">›</span></a>
-      <div class="info-row"><div class="ic2">🕐</div><div><b>Mon–Fri, 8:00am–4:30pm</b><span>24-hour emergency service available</span></div></div>
-      <div class="info-row"><div class="ic2">🪪</div><div><b>License 7118262</b><span>Licensed &amp; insured HVAC contractor</span></div></div>
-      <a class="info-row" href="https://search.google.com/local/writereview?placeid=ChIJD3ZFx4xvO4gRPW6uuATflyI" target="_blank" rel="noopener"><div class="ic2">★</div><div><b>Leave us a review</b><span>Google Reviews</span></div><span class="arrow">↗</span></a>
-      <a class="info-row" href="https://www.facebook.com/American-Heating-Cooling-Refrigeration-Inc-166813820044288" target="_blank" rel="noopener"><div class="ic2">f</div><div><b>Facebook</b><span>Follow for offers &amp; updates</span></div><span class="arrow">↗</span></a>
-      <a class="info-row" href="https://www.americanhtgclg.com/guarantees" target="_blank" rel="noopener"><div class="ic2">🛡</div><div><b>Warranty &amp; guarantees</b><span>View on our website</span></div><span class="arrow">↗</span></a>
-      <a class="info-row" href="https://www.americanhtgclg.com/promotions" target="_blank" rel="noopener"><div class="ic2">🏷</div><div><b>Current promotions</b><span>View on our website</span></div><span class="arrow">↗</span></a>
-      <a class="info-row" href="https://www.americanhtgclg.com/employment" target="_blank" rel="noopener"><div class="ic2">🧰</div><div><b>Employment inquiries</b><span>View on our website</span></div><span class="arrow">↗</span></a>
-      <a class="info-row" href="https://www.americanhtgclg.com/privacy-policy" target="_blank" rel="noopener"><div class="ic2">📄</div><div><b>Privacy policy &amp; terms</b><span>View on our website</span></div><span class="arrow">↗</span></a>
-    </div>
-    <footer class="legal">American Heating &amp; Cooling · Monroe, MI<br>© 2001–2026. All rights reserved.</footer>
-  </section>
-
-  <div class="tabbar">
-    <button class="tab-btn active" data-tab="home"><span class="tico">⌂</span>Home</button>
-    <button class="tab-btn" data-tab="services"><span class="tico">🔧</span>Services</button>
-    <button class="tab-btn" data-tab="quote"><span class="tico">◎</span>Book</button>
-    <button class="tab-btn" data-tab="financing"><span class="tico">$</span>Financing</button>
-    <button class="tab-btn" data-tab="more"><span class="tico">☰</span>More</button>
-  </div>
-</div>
-
-<script>
-/* =========================================================
-   CONFIG — replace before going live
-   ========================================================= */
-const BUSINESS = {
-  phone: "7342418800",
-  phoneDisplay: "(734) 241-8800",
-  leadEmail: "office@americanhtgclg.com"
-};
-
-/* =========================================================
-   Tab / view routing
-   ========================================================= */
-function goTab(name){
-  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
-  document.getElementById("view-" + name).classList.add("active");
-  document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === name));
-  const titles = {
-    home: ["American Heating & Cooling", "Monroe, MI · Since 1988"],
-    services: ["Our Services", "AC · Heating · Air Quality"],
-    quote: ["Book Online", "Select an Available Time Slot"],
-    financing: ["Financing Options", "Flexible ways to pay"],
-    more: ["Contact & Info", "Hours, location & more"]
-  };
-  document.getElementById("topTitle").textContent = titles[name][0];
-  document.getElementById("topSub").textContent = titles[name][1];
-  window.scrollTo(0,0);
-}
-document.querySelectorAll(".tab-btn").forEach(btn => btn.addEventListener("click", () => goTab(btn.dataset.tab)));
-
-function openQuote(mode){
-  goTab("quote");
-  if(mode === 'estimate') {
-    document.getElementById("bookingService").value = "Duct Cleaning Assessment";
-  } else {
-    document.getElementById("bookingService").value = "AC Repair Diagnostic";
-  }
-  updateBookingSummary();
-}
-
-/* =========================================================
-   SERVICES data + rendering (Synced from live site)
-   ========================================================= */
-const SERVICES = {
-  ac: [
-    ["AC Repair", "Prompt diagnostics when the unit hums, vibrates, or blows hot air."],
-    ["AC Replacement & Sizing", "Professional layout design to ensure low energy costs."],
-    ["AC Maintenance", "Lower utility bills with proactive multi-point coil inspections."],
-    ["Ductless Mini-Splits", "Zoned cooling configurations for additions, garages, & old builds."],
-    ["Heat Pump Services", "Expert ducted and ductless heat pump diagnostic repairs."]
-  ],
-  heat: [
-    ["Furnace Repair", "Same-day troubleshooting when your home's forced air goes cold."],
-    ["Furnace Replacement", "Sizing analysis backed by full factory system warranties."],
-    ["Furnace Maintenance", "Complete system cleaning to prevent critical component runtime failures."],
-    ["Boiler Services", "Licensed hydronic plumbing tune-ups, adjustments, and updates."],
-    ["Heat Pump Conversion", "Transition your traditional central air system into an eco-friendly setup."]
-  ],
-  other: [
-    ["Duct Cleaning Services", "Full system dust extraction and ventilation sanitization."],
-    ["Indoor Air Quality", "Advanced media filtration and whole-house duct air purifiers."],
-    ["Water Heater Service", "Prompt diagnostic repairs and new layouts for traditional tanks."],
-    ["Tankless Water Heaters", "Energy-efficient space-saving alternative installations."],
-    ["Home Insulation", "Upgrades targeting structural leaks to optimize continuous climate retention."]
-  ]
-};
-const dotClass = {ac:"ac", heat:"heat", other:"other"};
-
-function renderServices(cat){
-  const wrap = document.getElementById("serviceListing");
-  if(!wrap) return;
-  wrap.innerHTML = "";
-  SERVICES[cat].forEach(([title, desc])=>{
-    const el = document.createElement("div");
-    el.className = "svc-item";
-    el.innerHTML = `<span class="dot ${dotClass[cat]}"></span><div class="body"><b>${title}</b><span>${desc}</span></div><span class="go">›</span>`;
-    el.addEventListener("click", ()=> openQuote("quote"));
-    wrap.appendChild(el);
-  });
-}
-
-document.querySelectorAll(".cat-chip").forEach(chip=>{
-  chip.addEventListener("click", ()=>{
-    document.querySelectorAll(".cat-chip").forEach(c=>c.classList.remove("active"));
-    chip.classList.add("active");
-    renderServices(chip.dataset.cat);
-  });
-});
-renderServices("ac");
-
-/* =========================================================
-   FAQ accordion (Synced from live site diagnostics checklist)
-   ========================================================= */
-const FAQS = [
-  ["What basic steps should I verify before requesting an AC repair diagnostic visit?", "Before scheduling a technician, verify that your thermostat batteries aren't dead, check for a tripped circuit breaker, ensure your air filter isn't completely clogged, and verify that the system switch is explicitly toggled to 'Cool' mode."],
-  ["How can I determine if my air conditioner or furnace is covered by an active manufacturer warranty?", "Locate the metal production data plate mounted directly on your outdoor condenser cabinet or furnace casing to find the unit's serial number and production year. You can then reference the brand registry or have our team match it against active structural lemon and component warranties."],
-  ["How long does a standard home furnace or central cooling system replacement profile take?", "A standard furnace installation generally requires between four and six hours of active on-site labor. If you opt to upgrade both the furnace and matching outdoor air conditioning unit simultaneously, the baseline duration doubles, though most residential systems finish within a single business day."],
-  ["How much does an assessment or an upcoming project estimate run?", "Cost metrics fluctuate significantly based on residential footprints, dynamic system routing, and equipment structural classifications. We provide completely line-itemed upfront breakdowns following on-site reviews before any system work begins."],
-  ["What are the structural warnings indicating my water heater requires attention?", "Pay close attention to fluctuating hot water availability, mineral discoloration coming from your taps, or visible rust and water pooling directly at the base of the tank shell assembly."]
-];
-const faqList = document.getElementById("faqList");
-if(faqList){
-  FAQS.forEach(([q,a])=>{
-    const item = document.createElement("div");
-    item.className = "faq-item";
-    item.innerHTML = `<button class="faq-q"><span>${q}</span><span class="chev">⌄</span></button><div class="faq-a"><p>${a}</p></div>`;
-    const qBtn = item.querySelector(".faq-q");
-    const aBox = item.querySelector(".faq-a");
-    qBtn.addEventListener("click", ()=>{
-      const isOpen = item.classList.contains("open");
-      document.querySelectorAll(".faq-item.open").forEach(o=>{o.classList.remove("open"); o.querySelector(".faq-a").style.maxHeight=null;});
-      if(!isOpen){ item.classList.add("open"); aBox.style.maxHeight = aBox.scrollHeight + "px"; }
-    });
-    faqList.appendChild(item);
-  });
-}
-
-/* =========================================================
-   LIVE SCHEDULING CALENDAR ENGINE
-   ========================================================= */
-let COMPANY_OPENINGS = [
-  { id: "slot_01", date: "2026-07-06", time: "8:00 AM - 12:00 PM", status: "available" },
-  { id: "slot_02", date: "2026-07-06", time: "1:00 PM - 5:00 PM", status: "available" },
-  { id: "slot_03", date: "2026-07-07", time: "10:00 AM - 2:00 PM", status: "available" },
-  { id: "slot_04", date: "2026-07-08", time: "8:00 AM - 12:00 PM", status: "available" },
-  { id: "slot_05", date: "2026-07-09", time: "1:00 PM - 5:00 PM", status: "available" }
-];
-
-let selectedSlot = null;
-
-function renderAvailableCalendar() {
-  const grid = document.getElementById("availableSlotsGrid");
-  if (!grid) return;
-  grid.innerHTML = "";
-
-  const availableSlots = COMPANY_OPENINGS.filter(s => s.status === "available");
-
-  if (availableSlots.length === 0) {
-    grid.innerHTML = `<div style="grid-column: span 2; text-align:center; color:var(--ink-soft); padding:20px;">No openings listed for this week. Please check back soon or call the shop.</div>`;
-    return;
-  }
-
-  availableSlots.forEach(slot => {
-    const card = document.createElement("div");
-    card.className = `slot-card ${selectedSlot && selectedSlot.id === slot.id ? 'selected' : ''}`;
-    
-    const dateOptions = { weekday: 'short', month: 'short', day: 'numeric' };
-    const formattedDate = new Date(slot.date + 'T00:00:00').toLocaleDateString('en-US', dateOptions);
-
-    card.innerHTML = `<b>${formattedDate}</b><span>${slot.time}</span>`;
-    card.addEventListener("click", () => selectTimeSlot(slot));
-    grid.appendChild(card);
-  });
-}
-
-function selectTimeSlot(slot) {
-  selectedSlot = slot;
-  document.getElementById("selectedSlotId").value = slot.id;
-  document.getElementById("confirmBookingBtn").disabled = false;
-  
-  renderAvailableCalendar();
-  updateBookingSummary();
-}
-
-function updateBookingSummary() {
-  const box = document.getElementById("summaryBox");
-  const text = document.getElementById("summaryText");
-  const service = document.getElementById("bookingService").value;
-
-  if (!selectedSlot) {
-    box.style.display = "none";
-    return;
-  }
-
-  box.style.display = "block";
-  const dateOptions = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
-  const cleanDate = new Date(selectedSlot.date + 'T00:00:00').toLocaleDateString('en-US', dateOptions);
-  
-  text.innerHTML = `<strong>${service}</strong><br>📅 ${cleanDate}<br>⏰ ${selectedSlot.time}`;
-}
-
-document.getElementById("liveBookingForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-  if (!selectedSlot) return;
-
-  const newBooking = {
-    bookingId: "BK-" + Math.floor(100000 + Math.random() * 900000),
-    service: document.getElementById("bookingService").value,
-    date: selectedSlot.date,
-    time: selectedSlot.time,
-    clientName: document.getElementById("bookFName").value + " " + document.getElementById("bookLName").value,
-    phone: document.getElementById("bookPhone").value
-  };
-
-  // Mocking database mutation state locally
-  COMPANY_OPENINGS = COMPANY_OPENINGS.filter(s => s.id !== selectedSlot.id);
-
-  // Cache onto local storage list structure
-  let localHistory = JSON.parse(localStorage.getItem("ahc_bookings") || "[]");
-  localHistory.push(newBooking);
-  localStorage.setItem("ahc_bookings", JSON.stringify(localHistory));
-
-  alert(`Success! Appointment ${newBooking.bookingId} has been locked in. A text confirmation notification has been sent to ${newBooking.phone}.`);
-  
-  selectedSlot = null;
-  document.getElementById("liveBookingForm").reset();
-  document.getElementById("confirmBookingBtn").disabled = true;
-  
-  renderAvailableCalendar();
-  updateBookingSummary();
-  loadClientSavedBookings();
-});
-
-function loadClientSavedBookings() {
-  const container = document.getElementById("myBookingsContainer");
-  const list = document.getElementById("activeBookingsList");
-  const localHistory = JSON.parse(localStorage.getItem("ahc_bookings") || "[]");
-
-  if (!list || !container) return;
-
-  if (localHistory.length === 0) {
-    container.style.display = "none";
-    return;
-  }
-
-  container.style.display = "block";
-  list.innerHTML = "";
-
-  localHistory.forEach(b => {
-    const item = document.createElement("div");
-    item.className = "user-appt-card";
-    const dOpt = { month: 'short', day: 'numeric', year: 'numeric' };
-    const dStr = new Date(b.date + 'T00:00:00').toLocaleDateString('en-US', dOpt);
-    
-    item.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:flex-start;">
-        <strong style="font-size:14px; color:var(--navy); font-family:'Space Grotesk';">${b.service}</strong>
-        <span style="font-size:11px; font-family:'IBM Plex Mono'; background:#e2e8f0; padding:2px 6px; border-radius:4px;">${b.bookingId}</span>
-      </div>
-      <div style="font-size:12px; margin-top:4px; color:var(--ink);">📅 ${dStr} · ⏰ ${b.time}</div>
-      <div style="font-size:11px; color:var(--ink-soft); margin-top:2px;">Status: Confirmed (SMS Sent)</div>
-    `;
-    list.appendChild(item);
-  });
-}
-
-/* =========================================================
-   PWA install prompt (Android/Chrome) + service worker
-   ========================================================= */
-let deferredPrompt;
-window.addEventListener("beforeinstallprompt", (e)=>{
-  e.preventDefault();
-  deferredPrompt = e;
-  const banner = document.getElementById("installBanner");
-  if(banner) banner.classList.add("show");
-});
-
-const installBtn = document.getElementById("installBtn");
-if(installBtn){
-  installBtn.addEventListener("click", async ()=>{
-    const banner = document.getElementById("installBanner");
-    if(banner) banner.classList.remove("show");
-    if(deferredPrompt){ deferredPrompt.prompt(); await deferredPrompt.userChoice; deferredPrompt = null; }
-  });
-}
-
-window.addEventListener("appinstalled", () => {
-  const banner = document.getElementById("installBanner");
-  if(banner) banner.classList.remove("show");
-});
-
-if("serviceWorker" in navigator){
-  window.addEventListener("load", ()=>{
-    navigator.serviceWorker.register("sw.js").catch(()=>{});
-  });
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-  renderAvailableCalendar();
-  loadClientSavedBookings();
-});
-</script>
 </body>
 </html>
